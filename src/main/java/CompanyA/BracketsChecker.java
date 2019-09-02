@@ -58,29 +58,30 @@ public class BracketsChecker {
 
         for (Character character : map.keySet()){
             if (character=='('){
-                ArrayList<Integer> openBracketArray = map.get(character);
-                ArrayList<Integer> closeBracketArray = map.get(')');
-                if (openBracketArray.size() != closeBracketArray.size())
+                if (!checkIndexes(character, map))
                     return false;
-                for (int i=0; i<openBracketArray.size(); i++){
-                    if (openBracketArray.get(i) > closeBracketArray.get(i))
-                        return false;
-                }
             }
-            if (character=='['){
-                ArrayList<Integer> openBracketArray = map.get(character);
-                ArrayList<Integer> closeBracketArray = map.get(']');
-                if (openBracketArray.size() != closeBracketArray.size())
+            else if (character=='['){
+                if (!checkIndexes(character, map))
                     return false;
-                for (int i=0; i<openBracketArray.size(); i++){
-                    if (openBracketArray.get(i) > closeBracketArray.get(i))
-                        return false;
-                }
             }
+            else if (character=='{'){
+                if (!checkIndexes(character, map))
+                    return false;
+            }
+        }
 
-            if (character=='{'){
+        return true;
+    }
+
+    private static boolean checkIndexes(Character character, Map<Character, ArrayList<Integer>> map){
+        char[][] oppositeBrackets = {{'(',')'},{'{','}'},{'[',']'}};
+        for (char[] oppositePair : oppositeBrackets){
+            if (oppositePair[0]==character){
                 ArrayList<Integer> openBracketArray = map.get(character);
-                ArrayList<Integer> closeBracketArray = map.get('}');
+                ArrayList<Integer> closeBracketArray = map.get(oppositePair[1]);
+                if (closeBracketArray==null)
+                    return false;
                 if (openBracketArray.size() != closeBracketArray.size())
                     return false;
                 for (int i=0; i<openBracketArray.size(); i++){
