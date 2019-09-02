@@ -99,6 +99,7 @@ public class BracketsChecker {
         System.out.println(checkForBalancedBrackets("{[][]{}()}"));
         System.out.println(checkForUnbalancedBrackets("{[]{[}()}]"));
         System.out.println();
+
         //incorrect
         System.out.println(checkForBalancedBrackets("{[}][]{}()"));
         System.out.println(checkForUnbalancedBrackets("{]}"));
